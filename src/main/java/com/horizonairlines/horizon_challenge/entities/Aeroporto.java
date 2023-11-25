@@ -2,6 +2,8 @@ package com.horizonairlines.horizon_challenge.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +31,7 @@ public class Aeroporto implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cidade_id")
+    @JsonIgnore
     private Cidade cidade;
 
     private String nome;
