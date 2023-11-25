@@ -24,9 +24,6 @@ public class Cidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // @OneToMany(mappedBy = "cidade", fetch = FetchType.LAZY)
-    // private Set<Aeroporto> aeroportos;
-
     private String nome;
     private String uf;
 

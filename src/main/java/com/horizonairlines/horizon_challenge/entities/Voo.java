@@ -1,6 +1,7 @@
 package com.horizonairlines.horizon_challenge.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -38,8 +39,11 @@ public class Voo implements Serializable {
     @JoinColumn(name = "aeroporto_destino_id")
     private Aeroporto aeroportoDestino;
 
-    @OneToMany(mappedBy = "voo", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "voo", fetch = FetchType.EAGER) // cascade = CascadeType.ALL
     private Set<Classe> classes;
+
+    @JoinColumn(name = "data_partida")
+    private LocalDateTime dataPartida;
 
     private Integer number;
     private Boolean cancelado;
