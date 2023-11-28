@@ -45,7 +45,7 @@ public class Voo implements Serializable {
     @JoinColumn(name = "data_partida")
     private LocalDateTime dataPartida;
 
-    private Integer number;
+    private Integer numero;
     private Boolean cancelado;
 
 }

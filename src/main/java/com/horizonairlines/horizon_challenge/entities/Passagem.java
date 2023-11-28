@@ -32,7 +32,7 @@ public class Passagem implements Serializable {
     @JoinColumn(name = "passageiro_id")
     private Passageiro passageiro;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "classe_id")
     private Classe classe;
 
@@ -40,7 +40,7 @@ public class Passagem implements Serializable {
     @JoinColumn(name = "comprador_id")
     private Comprador comprador;
 
-    private Integer number;
+    private Integer numero;
     private BigDecimal preco;
     private Boolean cancelada;
     private Boolean despachoBagagem;
