@@ -19,4 +19,16 @@ public class PassagemService {
         return passagens.stream().map(x -> new PassagemDTO(x)).toList();
     }
 
+    public PassagemDTO cancelarPassagem(Long id) {
+        var passagem = passagemRepository.findById(id).get();
+        passagem.setCancelada(true);
+        var result = passagemRepository.save(passagem);
+        return new PassagemDTO(result);
+    }
+
+    public List<PassagemDTO> findAll() {
+        var passagens = passagemRepository.findAll();
+        return passagens.stream().map(x -> new PassagemDTO(x)).toList();
+    }
+
 }
