@@ -83,3 +83,6 @@ A Horizon Air Lines é um sistema de controle de voos, passageiros e passagens �
 - Validação de campos de entrada
 - Frontend
 - Hospedagem back/front
+
+## Arquivo docker-compose.yml
+- Coloquei o arquivo docker-compose em outra pasta, e subo os containers por lá, caso gere algum erro de permissão de acesso/escrita à pasta do pgadmin, executar comando **sudo chown -R 5050:5050 .data/pgadmin/** na pasta **.data**. 
