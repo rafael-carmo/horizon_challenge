@@ -28,7 +28,7 @@ public class Passagem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "passageiro_id")
     private Passageiro passageiro;
 

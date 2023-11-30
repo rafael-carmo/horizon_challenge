@@ -11,7 +11,6 @@ import com.horizonairlines.horizon_challenge.entities.Passagem;
 @Repository
 public interface PassagemRepository extends JpaRepository<Passagem, Long> {
 
-    // @Query(value = "SELECT p FROM Passagem p WHERE p.comprador.cpf :cpf")
-    @Query(value = "SELECT p FROM Passagem p WHERE p.comprador.cpf = :cpf")
+    @Query(value = "SELECT p FROM Passagem p INNER JOIN p.comprador c WHERE c.cpf = :cpf")
     List<Passagem> findByCpf(String cpf);
 }

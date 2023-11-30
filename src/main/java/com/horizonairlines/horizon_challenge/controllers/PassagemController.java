@@ -2,6 +2,7 @@ package com.horizonairlines.horizon_challenge.controllers;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.horizonairlines.horizon_challenge.dtos.PassagemDTO;
+import com.horizonairlines.horizon_challenge.dtos.PassagemInputDTO;
 import com.horizonairlines.horizon_challenge.services.PassagemService;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping(value = "/passagens")
@@ -31,6 +35,12 @@ public class PassagemController {
     public ResponseEntity<PassagemDTO> cancelarPassagem(@PathVariable Long id) {
         PassagemDTO result = passagemService.cancelarPassagem(id);
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @PostMapping
+    public ResponseEntity<PassagemDTO> save(@RequestBody PassagemInputDTO passagemInputDTO) {
+        var result = passagemService.save(passagemInputDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
 }
