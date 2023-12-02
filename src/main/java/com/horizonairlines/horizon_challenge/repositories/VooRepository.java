@@ -7,5 +7,5 @@ import com.horizonairlines.horizon_challenge.entities.Voo;
 
 @Repository
 public interface VooRepository extends JpaRepository<Voo, Long> {
-
+    public Voo findByNumero(Integer numero);
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.horizonairlines.horizon_challenge.dtos.PassagemDTO;
 import com.horizonairlines.horizon_challenge.dtos.PassagemInputDTO;
 import com.horizonairlines.horizon_challenge.entities.Passagem;
+import com.horizonairlines.horizon_challenge.exceptions.CodeUniqueExistsException;
 import com.horizonairlines.horizon_challenge.repositories.ClasseRepository;
 import com.horizonairlines.horizon_challenge.repositories.CompradorRepository;
 import com.horizonairlines.horizon_challenge.repositories.PassageiroRepository;
@@ -28,6 +29,9 @@ public class PassagemService {
 
     public PassagemDTO save(PassagemInputDTO passagemInputDto) {
         var passagem = new Passagem();
+
+        if (passagemRepository.existsByNumero(passagemInputDto.getNumero()))
+            throw new CodeUniqueExistsException("Já existe uma passagem com este número.");
 
         var passageiro = passageiroRepository.findById(passagemInputDto.getPassageiro_id()).get();
         var classe = classeRepository.findById(passagemInputDto.getClasse_id()).get();

@@ -13,4 +13,6 @@ public interface PassagemRepository extends JpaRepository<Passagem, Long> {
 
     @Query(value = "SELECT p FROM Passagem p INNER JOIN p.comprador c WHERE c.cpf = :cpf")
     List<Passagem> findByCpf(String cpf);
+
+    public Boolean existsByNumero(Integer numero);
 }

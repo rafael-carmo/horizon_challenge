@@ -7,5 +7,5 @@ import com.horizonairlines.horizon_challenge.entities.Classe;
 
 @Repository
 public interface ClasseRepository extends JpaRepository<Classe, Long> {
-
+    public Boolean existsByTipo(String tipo);
 }

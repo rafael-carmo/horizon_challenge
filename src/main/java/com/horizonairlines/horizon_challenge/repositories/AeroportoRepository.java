@@ -8,4 +8,5 @@ import com.horizonairlines.horizon_challenge.entities.Aeroporto;
 @Repository
 public interface AeroportoRepository extends JpaRepository<Aeroporto, Long> {
 
+    public Aeroporto findByCodigoIata(String codigoIata);
 }

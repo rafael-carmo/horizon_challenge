@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.horizonairlines.horizon_challenge.dtos.AeroportoDTO;
 import com.horizonairlines.horizon_challenge.dtos.AeroportoMinDTO;
 import com.horizonairlines.horizon_challenge.entities.Aeroporto;
+import com.horizonairlines.horizon_challenge.exceptions.CodeUniqueExistsException;
 import com.horizonairlines.horizon_challenge.repositories.AeroportoRepository;
 import com.horizonairlines.horizon_challenge.repositories.CidadeRepository;
 
@@ -22,6 +23,10 @@ public class AeroportoService {
 
     public AeroportoDTO save(AeroportoMinDTO aeroportoMinDto) {
         var aeroporto = new Aeroporto();
+
+        var aeroportoIata = aeroportoRepository.findByCodigoIata(aeroportoMinDto.getCodigoIata());
+        if (aeroportoIata != null)
+            throw new CodeUniqueExistsException("Já existe aeroporto com este código IATA.");
 
         var cidade = cidadeRepository.findById(aeroportoMinDto.getCidade_id()).get();
         aeroportoMinDto.setCidade(cidade);
