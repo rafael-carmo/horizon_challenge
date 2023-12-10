@@ -75,4 +75,11 @@ public class GlobalExceptionHandler {
                 new ExceptionDTO(HttpStatus.BAD_REQUEST, e.getMessage()));
     }
 
+    @ExceptionHandler(SeatsNotAvailableException.class)
+    public ResponseEntity<ExceptionDTO> seatsNotAvailableException(SeatsNotAvailableException e) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ExceptionDTO(HttpStatus.BAD_REQUEST, e.getMessage()));
+    }
+
 }

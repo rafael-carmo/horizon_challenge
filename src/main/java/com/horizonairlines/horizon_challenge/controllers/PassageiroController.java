@@ -26,25 +26,4 @@ public class PassageiroController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    // @PostMapping
-    // public ResponseEntity<AeroportoDTO> saveAeroporto(@RequestBody
-    // AeroportoMinDTO aeroportoMinDTO) {
-    // AeroportoDTO result = aeroportoService.save(aeroportoMinDTO);
-    // return ResponseEntity.status(HttpStatus.CREATED).body(result);
-    // }
-
-    // @GetMapping(value = "/{id}")
-    // public ResponseEntity<AeroportoDTO> findById(@PathVariable Long id) {
-    // AeroportoDTO result = aeroportoService.findById(id);
-    // return ResponseEntity.status(HttpStatus.OK).body(result);
-    // }
-
-    // @GetMapping
-    // public ResponseEntity<List<AeroportoDTO>> findAll() {
-    // List<AeroportoDTO> resultList = aeroportoService.findAll();
-    // System.out.println("Lista de aeroportos");
-    // System.out.println(resultList.size());
-    // return ResponseEntity.status(HttpStatus.OK).body(resultList);
-    // }
-
 }

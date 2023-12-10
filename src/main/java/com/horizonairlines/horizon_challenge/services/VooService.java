@@ -1,8 +1,7 @@
 package com.horizonairlines.horizon_challenge.services;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,15 +61,15 @@ public class VooService {
 
         Voo result = vooRepository.save(voo);
 
-        Set<Classe> classeList = new HashSet<Classe>();
+        List<Classe> classeList = new ArrayList<Classe>();
         vooInputDto.getClasses().forEach(classe -> {
-            Voo vooTeste = new Voo();
-            vooTeste.setId(result.getId());
-            classe.setVoo(vooTeste);
+            Voo vooClasse = new Voo();
+            vooClasse.setId(result.getId());
+            classe.setVoo(vooClasse);
 
             // REGRA: Não deve haver duas ou mais
             // classes do mesmo tipo no mesmo voo.
-            if (classeRepository.existsByTipo(classe.getTipo()))
+            if (classeRepository.existsByTipoAndVoo(classe.getTipo(), result))
                 throw new ObjectAlreadyExistsException(
                         "Não deve haver duas ou mais classes do mesmo tipo no mesmo voo.");
 

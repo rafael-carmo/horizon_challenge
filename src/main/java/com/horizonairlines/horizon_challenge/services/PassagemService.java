@@ -1,19 +1,18 @@
 package com.horizonairlines.horizon_challenge.services;
 
-import java.util.List;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.horizonairlines.horizon_challenge.dtos.PassagemDTO;
 import com.horizonairlines.horizon_challenge.dtos.PassagemInputDTO;
 import com.horizonairlines.horizon_challenge.entities.Passagem;
 import com.horizonairlines.horizon_challenge.exceptions.CodeUniqueExistsException;
+import com.horizonairlines.horizon_challenge.exceptions.SeatsNotAvailableException;
 import com.horizonairlines.horizon_challenge.repositories.ClasseRepository;
 import com.horizonairlines.horizon_challenge.repositories.CompradorRepository;
 import com.horizonairlines.horizon_challenge.repositories.PassageiroRepository;
 import com.horizonairlines.horizon_challenge.repositories.PassagemRepository;
+import java.util.List;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PassagemService {
@@ -27,11 +26,23 @@ public class PassagemService {
     @Autowired
     private CompradorRepository compradorRepository;
 
+    public Boolean assentosDisponiveis(Long classeId) {
+        var classe = classeRepository.findById(classeId).get();
+        var qtdPassagens = passagemRepository.countByClasseAndCanceladaFalse(classe);
+
+        return classe.getQtdAssentos() <= qtdPassagens;
+    }
+
     public PassagemDTO save(PassagemInputDTO passagemInputDto) {
         var passagem = new Passagem();
 
         if (passagemRepository.existsByNumero(passagemInputDto.getNumero()))
             throw new CodeUniqueExistsException("Já existe uma passagem com este número.");
+
+        // REGRA: Não podem ser vendidas mais passagens
+        // do que a capacidade máxima da classe.
+        if (this.assentosDisponiveis(passagemInputDto.getClasse_id()))
+            throw new SeatsNotAvailableException();
 
         var passageiro = passageiroRepository.findById(passagemInputDto.getPassageiro_id()).get();
         var classe = classeRepository.findById(passagemInputDto.getClasse_id()).get();

@@ -39,7 +39,7 @@ public class VooController {
 
     @GetMapping
     public ResponseEntity<List<VooDTO>> findAll() {
-        List<VooDTO> resultList = vooService.findAll();
+        var resultList = vooService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(resultList);
     }
 

@@ -1,6 +1,6 @@
 package com.horizonairlines.horizon_challenge.dtos;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
@@ -22,7 +22,7 @@ public class VooInputDTO {
     private Long aeroporto_destino_id;
     private Aeroporto aeroportoOrigem;
     private Aeroporto aeroportoDestino;
-    private Set<Classe> classes;
+    private List<Classe> classes;
     private Integer number;
     private Boolean cancelado;
 

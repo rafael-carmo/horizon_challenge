@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import org.springframework.beans.BeanUtils;
 
 import com.horizonairlines.horizon_challenge.entities.Classe;
-import com.horizonairlines.horizon_challenge.entities.Voo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
