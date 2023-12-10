@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.horizonairlines.horizon_challenge.dtos.PassagemDTO;
 import com.horizonairlines.horizon_challenge.dtos.PassagemInputDTO;
+import com.horizonairlines.horizon_challenge.dtos.PassagemVoucherDTO;
 import com.horizonairlines.horizon_challenge.services.PassagemService;
 
 @RestController
@@ -40,6 +41,12 @@ public class PassagemController {
     public ResponseEntity<PassagemDTO> save(@RequestBody PassagemInputDTO passagemInputDTO) {
         var result = passagemService.save(passagemInputDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    @GetMapping("/{id}/voucher")
+    public ResponseEntity<PassagemVoucherDTO> voucher(@PathVariable long id) {
+        var result = passagemService.printVoucher(id);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }

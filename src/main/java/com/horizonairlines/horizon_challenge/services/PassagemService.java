@@ -2,6 +2,7 @@ package com.horizonairlines.horizon_challenge.services;
 
 import com.horizonairlines.horizon_challenge.dtos.PassagemDTO;
 import com.horizonairlines.horizon_challenge.dtos.PassagemInputDTO;
+import com.horizonairlines.horizon_challenge.dtos.PassagemVoucherDTO;
 import com.horizonairlines.horizon_challenge.entities.Passagem;
 import com.horizonairlines.horizon_challenge.exceptions.CodeUniqueExistsException;
 import com.horizonairlines.horizon_challenge.exceptions.SeatsNotAvailableException;
@@ -74,6 +75,11 @@ public class PassagemService {
     public List<PassagemDTO> findAll() {
         var passagens = passagemRepository.findAll();
         return passagens.stream().map(x -> new PassagemDTO(x)).toList();
+    }
+
+    public PassagemVoucherDTO printVoucher(Long passagem_id) {
+        var voucherProjection = passagemRepository.findByPassagemId(passagem_id);
+        return new PassagemVoucherDTO(voucherProjection);
     }
 
 }
