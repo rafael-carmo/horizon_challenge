@@ -1,12 +1,7 @@
 package com.horizonairlines.horizon_challenge.dtos;
 
-import java.math.BigDecimal;
-
 import org.springframework.beans.BeanUtils;
 
-import com.horizonairlines.horizon_challenge.entities.Classe;
-import com.horizonairlines.horizon_challenge.entities.Comprador;
-import com.horizonairlines.horizon_challenge.entities.Passageiro;
 import com.horizonairlines.horizon_challenge.entities.Passagem;
 
 import lombok.Getter;
@@ -21,12 +16,7 @@ public class PassagemInputDTO {
     private Long passageiro_id;
     private Long classe_id;
     private Long comprador_id;
-    private Passageiro passageiro;
-    private Classe classe;
-    private Comprador comprador;
     private Integer numero;
-    private BigDecimal preco;
-    private Boolean cancelada;
     private Boolean despachoBagagem;
 
     public PassagemInputDTO(Passagem entity) {

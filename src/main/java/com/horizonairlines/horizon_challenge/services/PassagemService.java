@@ -10,6 +10,8 @@ import com.horizonairlines.horizon_challenge.repositories.ClasseRepository;
 import com.horizonairlines.horizon_challenge.repositories.CompradorRepository;
 import com.horizonairlines.horizon_challenge.repositories.PassageiroRepository;
 import com.horizonairlines.horizon_challenge.repositories.PassagemRepository;
+
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,6 @@ public class PassagemService {
     }
 
     public PassagemDTO save(PassagemInputDTO passagemInputDto) {
-        var passagem = new Passagem();
 
         if (passagemRepository.existsByNumero(passagemInputDto.getNumero()))
             throw new CodeUniqueExistsException("Já existe uma passagem com este número.");
@@ -49,9 +50,20 @@ public class PassagemService {
         var classe = classeRepository.findById(passagemInputDto.getClasse_id()).get();
         var comprador = compradorRepository.findById(passagemInputDto.getComprador_id()).get();
 
-        passagemInputDto.setPassageiro(passageiro);
-        passagemInputDto.setClasse(classe);
-        passagemInputDto.setComprador(comprador);
+        var passagem = new Passagem();
+        passagem.setPassageiro(passageiro);
+        passagem.setClasse(classe);
+        passagem.setComprador(comprador);
+        passagem.setCancelada(false);
+
+        // REAGRA: se houver despache de bagagem, deve ser acrescida uma taxa de 10% do
+        // valor do
+        // assento ao valor da passagem.
+        if (passagemInputDto.getDespachoBagagem()) {
+            BigDecimal extra = classe.getValor().multiply(BigDecimal.valueOf(10)).divide(BigDecimal.valueOf(100));
+            BigDecimal valorTotal = classe.getValor().add(extra);
+            passagem.setPreco(valorTotal);
+        }
 
         BeanUtils.copyProperties(passagemInputDto, passagem);
 
