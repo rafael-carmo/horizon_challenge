@@ -1,6 +1,5 @@
 package com.horizonairlines.horizon_challenge.exceptions;
 
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -11,13 +10,6 @@ import org.springframework.web.client.HttpClientErrorException.Forbidden;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ExceptionDTO> notFoundException(NotFoundException e) {
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ExceptionDTO(HttpStatus.NOT_FOUND, e.getMessage()));
-    }
 
     @ExceptionHandler(Forbidden.class)
     public ResponseEntity<ExceptionDTO> forbiddenException(Forbidden e) {
@@ -80,6 +72,13 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ExceptionDTO(HttpStatus.BAD_REQUEST, e.getMessage()));
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ExceptionDTO> notFoundException(NotFoundException e) {
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ExceptionDTO(HttpStatus.NOT_FOUND, e.getMessage()));
     }
 
 }

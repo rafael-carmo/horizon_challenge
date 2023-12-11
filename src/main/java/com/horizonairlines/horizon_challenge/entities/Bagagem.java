@@ -30,4 +30,6 @@ public class Bagagem implements Serializable {
     @JoinColumn(name = "passagem_id")
     private Passagem passagem;
 
+    private Integer numero;
+
 }
