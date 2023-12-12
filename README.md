@@ -11,7 +11,7 @@ A Horizon Air Lines é um sistema de controle de voos, passageiros e passagens �
 - Obter as passagens compradas pelo CPF do comprador **(atendida)**
 - Cancelar compra **(atendida)**
 - Emitir o voucher da passagem **(atendida)**
-- Emitir etiqueta de bagagem **(não atendida)**
+- Emitir etiqueta de bagagem **(atendida)**
 
 ## Templates Postman/Insomnia
 
@@ -79,7 +79,6 @@ A Horizon Air Lines é um sistema de controle de voos, passageiros e passagens �
 
 ## Ficou faltando:
 - Autenticação/Autorização
-- Impressão voucher/etiquetas bagagens
 - Validação de campos de entrada
 - Frontend
 - Hospedagem back/front
