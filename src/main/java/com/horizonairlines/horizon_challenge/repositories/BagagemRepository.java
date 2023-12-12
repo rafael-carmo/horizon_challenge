@@ -31,4 +31,6 @@ public interface BagagemRepository extends JpaRepository<Bagagem, Long> {
             """)
     EtiquetaProjection findEtiquetaByNumero(Integer numero);
 
+    Boolean existsByNumero(Integer numero);
+
 }
