@@ -25,6 +25,13 @@ public class BagagemService {
     @Autowired
     private PassagemRepository passagemRepository;
 
+    public BagagemDTO findById(Long id) {
+        var bagagem = bagagemRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Bagagem não encontrada!"));
+
+        return new BagagemDTO(bagagem);
+    }
+
     @Transactional
     public BagagemDTO save(BagagemInputDTO bagagemInputDto) {
 
