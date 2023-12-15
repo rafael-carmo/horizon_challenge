@@ -1,4 +1,4 @@
-package com.horizonairlines.horizon_challenge.dtos;
+package com.horizonairlines.horizon_challenge.dtos.passagem;
 
 import com.horizonairlines.horizon_challenge.projections.VoucherProjection;
 

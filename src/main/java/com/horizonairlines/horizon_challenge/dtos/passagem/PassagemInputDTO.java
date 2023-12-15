@@ -1,8 +1,7 @@
-package com.horizonairlines.horizon_challenge.dtos;
+package com.horizonairlines.horizon_challenge.dtos.passagem;
 
 import org.springframework.beans.BeanUtils;
 
-import com.horizonairlines.horizon_challenge.entities.Bagagem;
 import com.horizonairlines.horizon_challenge.entities.Passagem;
 
 import lombok.Getter;
@@ -12,13 +11,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BagagemDTO {
+public class PassagemInputDTO {
 
-    private Long id;
-    private Passagem passagem;
+    private Long passageiro_id;
+    private Long classe_id;
+    private Long comprador_id;
     private Integer numero;
+    private Boolean despachoBagagem;
 
-    public BagagemDTO(Bagagem entity) {
+    public PassagemInputDTO(Passagem entity) {
         BeanUtils.copyProperties(entity, this);
     }
 

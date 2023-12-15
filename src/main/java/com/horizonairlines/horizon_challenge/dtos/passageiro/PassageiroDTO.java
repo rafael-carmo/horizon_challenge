@@ -1,4 +1,4 @@
-package com.horizonairlines.horizon_challenge.dtos;
+package com.horizonairlines.horizon_challenge.dtos.passageiro;
 
 import java.time.LocalDate;
 

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.horizonairlines.horizon_challenge.dtos.BagagemDTO;
-import com.horizonairlines.horizon_challenge.dtos.BagagemInputDTO;
-import com.horizonairlines.horizon_challenge.dtos.EtiquetaDTO;
+import com.horizonairlines.horizon_challenge.dtos.bagagem.BagagemDTO;
+import com.horizonairlines.horizon_challenge.dtos.bagagem.BagagemInputDTO;
+import com.horizonairlines.horizon_challenge.dtos.bagagem.EtiquetaDTO;
 import com.horizonairlines.horizon_challenge.services.BagagemService;
 
 @RestController

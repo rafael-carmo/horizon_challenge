@@ -1,7 +1,7 @@
-package com.horizonairlines.horizon_challenge.dtos;
+package com.horizonairlines.horizon_challenge.dtos.voo;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
 
@@ -12,21 +12,20 @@ import com.horizonairlines.horizon_challenge.entities.Voo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class VooDTO {
+@ToString
+public class VooUpdateDTO {
 
-    private Long id;
-    private Aeroporto aeroportoOrigem;
-    private Aeroporto aeroportoDestino;
-    private List<Classe> classes;
+    private Long aeroporto_origem_id;
+    private Long aeroporto_destino_id;
     private LocalDateTime dataPartida;
     private Integer number;
-    private Boolean cancelado;
 
-    public VooDTO(Voo entity) {
+    public VooUpdateDTO(Voo entity) {
         BeanUtils.copyProperties(entity, this);
     }
 

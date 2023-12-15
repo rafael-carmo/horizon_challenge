@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.horizonairlines.horizon_challenge.dtos.PassageiroDTO;
+import com.horizonairlines.horizon_challenge.dtos.passageiro.PassageiroDTO;
 import com.horizonairlines.horizon_challenge.services.PassageiroService;
 
 @RestController

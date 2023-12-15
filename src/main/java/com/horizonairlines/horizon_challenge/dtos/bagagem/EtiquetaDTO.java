@@ -1,4 +1,4 @@
-package com.horizonairlines.horizon_challenge.dtos;
+package com.horizonairlines.horizon_challenge.dtos.bagagem;
 
 import com.horizonairlines.horizon_challenge.projections.EtiquetaProjection;
 

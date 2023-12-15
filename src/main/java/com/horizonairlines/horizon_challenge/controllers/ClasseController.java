@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.horizonairlines.horizon_challenge.dtos.ClasseDTO;
-import com.horizonairlines.horizon_challenge.dtos.ClasseInputDTO;
-import com.horizonairlines.horizon_challenge.dtos.ClasseUpdateDTO;
+import com.horizonairlines.horizon_challenge.dtos.classe.ClasseDTO;
+import com.horizonairlines.horizon_challenge.dtos.classe.ClasseInputDTO;
+import com.horizonairlines.horizon_challenge.dtos.classe.ClasseUpdateDTO;
 import com.horizonairlines.horizon_challenge.services.ClasseService;
 
 @RestController

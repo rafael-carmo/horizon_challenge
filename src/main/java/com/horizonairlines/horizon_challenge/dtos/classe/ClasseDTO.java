@@ -1,27 +1,28 @@
-package com.horizonairlines.horizon_challenge.dtos;
+package com.horizonairlines.horizon_challenge.dtos.classe;
 
 import java.math.BigDecimal;
 
 import org.springframework.beans.BeanUtils;
 
 import com.horizonairlines.horizon_challenge.entities.Classe;
+import com.horizonairlines.horizon_challenge.entities.Voo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-public class ClasseUpdateDTO {
+public class ClasseDTO {
 
+    private Long id;
+    private Voo voo;
     private String tipo;
     private Integer qtdAssentos;
     private BigDecimal valor;
 
-    public ClasseUpdateDTO(Classe entity) {
+    public ClasseDTO(Classe entity) {
         BeanUtils.copyProperties(entity, this);
     }
 

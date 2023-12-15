@@ -2,6 +2,7 @@ package com.horizonairlines.horizon_challenge.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.horizonairlines.horizon_challenge.entities.Voo;
 import com.horizonairlines.horizon_challenge.exceptions.AirportOrCityEqualsException;
 import com.horizonairlines.horizon_challenge.exceptions.ClassVooNotFoundException;
 import com.horizonairlines.horizon_challenge.exceptions.CodeUniqueExistsException;
+import com.horizonairlines.horizon_challenge.exceptions.NotFoundException;
 import com.horizonairlines.horizon_challenge.exceptions.ObjectAlreadyExistsException;
 import com.horizonairlines.horizon_challenge.repositories.AeroportoRepository;
 import com.horizonairlines.horizon_challenge.repositories.ClasseRepository;
@@ -37,11 +39,14 @@ public class VooService {
 
         // REGRA: Voos devem ter numeração única
         var uniqueNumber = vooRepository.findByNumero(vooInputDto.getNumber());
-        if (uniqueNumber != null)
+        if (Objects.nonNull(uniqueNumber))
             throw new CodeUniqueExistsException("Número do voo já existe.");
 
-        var aeroportoOrigem = aeroportoRepository.findById(vooInputDto.getAeroporto_origem_id()).get();
-        var aeroportoDestino = aeroportoRepository.findById(vooInputDto.getAeroporto_destino_id()).get();
+        var aeroportoOrigem = aeroportoRepository.findById(vooInputDto.getAeroporto_origem_id())
+                .orElseThrow(() -> new NotFoundException("Aeroporto origem não encontrado!"));
+
+        var aeroportoDestino = aeroportoRepository.findById(vooInputDto.getAeroporto_destino_id())
+                .orElseThrow(() -> new NotFoundException("Aeroporto destino não encontrado!"));
 
         // REGRA:O voo não pode ter como origem e destino o mesmo aeroporto, e esses
         // aeroportos não podem estar situados na mesma cidade.
@@ -54,8 +59,8 @@ public class VooService {
             throw new ClassVooNotFoundException();
         }
 
-        vooInputDto.setAeroportoOrigem(aeroportoOrigem);
-        vooInputDto.setAeroportoDestino(aeroportoDestino);
+        voo.setAeroportoOrigem(aeroportoOrigem);
+        voo.setAeroportoDestino(aeroportoDestino);
 
         BeanUtils.copyProperties(vooInputDto, voo);
 
@@ -82,7 +87,8 @@ public class VooService {
     }
 
     public VooDTO findById(Long id) {
-        var voo = vooRepository.findById(id).get();
+        var voo = vooRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Voo não encontrado!"));
         return new VooDTO(voo);
     }
 
@@ -92,13 +98,17 @@ public class VooService {
     }
 
     public VooDTO update(Long id, VooUpdateDTO vooUpdateDTO) {
-        var voo = vooRepository.findById(id).get();
+        var voo = vooRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Voo não encontrado!"));
 
-        var aeroportoOrigem = aeroportoRepository.findById(vooUpdateDTO.getAeroporto_origem_id()).get();
-        var aeroportoDestino = aeroportoRepository.findById(vooUpdateDTO.getAeroporto_destino_id()).get();
+        var aeroportoOrigem = aeroportoRepository.findById(vooUpdateDTO.getAeroporto_origem_id())
+                .orElseThrow(() -> new NotFoundException("Aeroporto origem não encontrado!"));
 
-        vooUpdateDTO.setAeroportoOrigem(aeroportoOrigem);
-        vooUpdateDTO.setAeroportoDestino(aeroportoDestino);
+        var aeroportoDestino = aeroportoRepository.findById(vooUpdateDTO.getAeroporto_destino_id())
+                .orElseThrow(() -> new NotFoundException("Aeroporto destino não encontrado!"));
+
+        voo.setAeroportoOrigem(aeroportoOrigem);
+        voo.setAeroportoDestino(aeroportoDestino);
 
         BeanUtils.copyProperties(vooUpdateDTO, voo);
 
@@ -107,7 +117,9 @@ public class VooService {
     }
 
     public VooDTO cancelarVoo(Long id) {
-        var voo = vooRepository.findById(id).get();
+        var voo = vooRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Voo não encontrado!"));
+        ;
         voo.setCancelado(true);
         var result = vooRepository.save(voo);
         return new VooDTO(result);

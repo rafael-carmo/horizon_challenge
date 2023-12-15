@@ -9,6 +9,7 @@ import com.horizonairlines.horizon_challenge.dtos.ClasseDTO;
 import com.horizonairlines.horizon_challenge.dtos.ClasseInputDTO;
 import com.horizonairlines.horizon_challenge.dtos.ClasseUpdateDTO;
 import com.horizonairlines.horizon_challenge.entities.Classe;
+import com.horizonairlines.horizon_challenge.exceptions.NotFoundException;
 import com.horizonairlines.horizon_challenge.repositories.ClasseRepository;
 import com.horizonairlines.horizon_challenge.repositories.VooRepository;
 
@@ -23,9 +24,10 @@ public class ClasseService {
     public ClasseDTO save(ClasseInputDTO classeInputDto) {
         var classe = new Classe();
 
-        var voo = vooRepository.findById(classeInputDto.getVoo_id()).get();
+        var voo = vooRepository.findById(classeInputDto.getVoo_id())
+                .orElseThrow(() -> new NotFoundException("Voo não encontrado"));
 
-        classeInputDto.setVoo(voo);
+        classe.setVoo(voo);
 
         BeanUtils.copyProperties(classeInputDto, classe);
 
@@ -35,7 +37,9 @@ public class ClasseService {
     }
 
     public ClasseDTO findById(Long id) {
-        var classe = classeRepository.findById(id).get();
+        var classe = classeRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Classe não encontrada!"));
+
         return new ClasseDTO(classe);
     }
 
@@ -45,7 +49,8 @@ public class ClasseService {
     }
 
     public ClasseDTO update(Long id, ClasseUpdateDTO classeUpdateDTO) {
-        var classe = classeRepository.findById(id).get();
+        var classe = classeRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Classe não encontrada"));
 
         BeanUtils.copyProperties(classeUpdateDTO, classe);
 

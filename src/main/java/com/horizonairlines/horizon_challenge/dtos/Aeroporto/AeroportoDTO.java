@@ -1,4 +1,4 @@
-package com.horizonairlines.horizon_challenge.dtos;
+package com.horizonairlines.horizon_challenge.dtos.Aeroporto;
 
 import org.springframework.beans.BeanUtils;
 
@@ -19,12 +19,6 @@ public class AeroportoDTO {
     private String nome;
     private String codigoIata;
 
-    // public AeroportoDTO(Aeroporto entity) {
-    // this.id = entity.getId();
-    // this.cidade = entity.getCidade();
-    // this.nome = entity.getNome();
-    // this.codigoIata = entity.getCodigoIata();
-    // }
     public AeroportoDTO(Aeroporto entity) {
         BeanUtils.copyProperties(entity, this);
     }

@@ -5,6 +5,7 @@ import com.horizonairlines.horizon_challenge.dtos.PassagemInputDTO;
 import com.horizonairlines.horizon_challenge.dtos.PassagemVoucherDTO;
 import com.horizonairlines.horizon_challenge.entities.Passagem;
 import com.horizonairlines.horizon_challenge.exceptions.CodeUniqueExistsException;
+import com.horizonairlines.horizon_challenge.exceptions.NotFoundException;
 import com.horizonairlines.horizon_challenge.exceptions.SeatsNotAvailableException;
 import com.horizonairlines.horizon_challenge.repositories.ClasseRepository;
 import com.horizonairlines.horizon_challenge.repositories.CompradorRepository;
@@ -30,7 +31,9 @@ public class PassagemService {
     private CompradorRepository compradorRepository;
 
     public Boolean assentosDisponiveis(Long classeId) {
-        var classe = classeRepository.findById(classeId).get();
+        var classe = classeRepository.findById(classeId)
+                .orElseThrow(() -> new NotFoundException("Classe não encontrada!"));
+
         var qtdPassagens = passagemRepository.countByClasseAndCanceladaFalse(classe);
 
         return classe.getQtdAssentos() <= qtdPassagens;
@@ -41,14 +44,17 @@ public class PassagemService {
         if (passagemRepository.existsByNumero(passagemInputDto.getNumero()))
             throw new CodeUniqueExistsException("Já existe uma passagem com este número.");
 
+        var passageiro = passageiroRepository.findById(passagemInputDto.getPassageiro_id())
+                .orElseThrow(() -> new NotFoundException("Passageiro não encontrado!"));
+        var classe = classeRepository.findById(passagemInputDto.getClasse_id())
+                .orElseThrow(() -> new NotFoundException("Classe não encontrada!"));
+        var comprador = compradorRepository.findById(passagemInputDto.getComprador_id())
+                .orElseThrow(() -> new NotFoundException("Comprador não encontrado!"));
+
         // REGRA: Não podem ser vendidas mais passagens
         // do que a capacidade máxima da classe.
         if (this.assentosDisponiveis(passagemInputDto.getClasse_id()))
             throw new SeatsNotAvailableException();
-
-        var passageiro = passageiroRepository.findById(passagemInputDto.getPassageiro_id()).get();
-        var classe = classeRepository.findById(passagemInputDto.getClasse_id()).get();
-        var comprador = compradorRepository.findById(passagemInputDto.getComprador_id()).get();
 
         var passagem = new Passagem();
         passagem.setPassageiro(passageiro);
@@ -78,7 +84,9 @@ public class PassagemService {
     }
 
     public PassagemDTO cancelarPassagem(Long id) {
-        var passagem = passagemRepository.findById(id).get();
+        var passagem = passagemRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Passagem não encontrada!"));
+        ;
         passagem.setCancelada(true);
         var result = passagemRepository.save(passagem);
         return new PassagemDTO(result);

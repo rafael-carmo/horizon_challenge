@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.horizonairlines.horizon_challenge.dtos.BagagemDTO;
-import com.horizonairlines.horizon_challenge.dtos.BagagemInputDTO;
-import com.horizonairlines.horizon_challenge.dtos.EtiquetaDTO;
+import com.horizonairlines.horizon_challenge.dtos.bagagem.BagagemDTO;
+import com.horizonairlines.horizon_challenge.dtos.bagagem.BagagemInputDTO;
+import com.horizonairlines.horizon_challenge.dtos.bagagem.EtiquetaDTO;
 import com.horizonairlines.horizon_challenge.entities.Bagagem;
 import com.horizonairlines.horizon_challenge.exceptions.CodeUniqueExistsException;
 import com.horizonairlines.horizon_challenge.exceptions.NotFoundException;
@@ -35,9 +35,11 @@ public class BagagemService {
     @Transactional
     public BagagemDTO save(BagagemInputDTO bagagemInputDto) {
 
-        var passagem = passagemRepository.findById(bagagemInputDto.getPassagem_id()).get();
-        if (Objects.isNull(passagem))
-            throw new NotFoundException("Passagem não encontrada!");
+        var passagem = passagemRepository.findById(bagagemInputDto.getPassagem_id())
+                .orElseThrow(() -> new NotFoundException("Passagem não encontrada!"));
+
+        // if (Objects.isNull(passagem))
+        // throw new NotFoundException("Passagem não encontrada!");
 
         if (bagagemRepository.existsByNumero(bagagemInputDto.getNumero()))
             throw new CodeUniqueExistsException("Já existe uma bagagem com este número.");

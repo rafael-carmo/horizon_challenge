@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.horizonairlines.horizon_challenge.dtos.AeroportoDTO;
-import com.horizonairlines.horizon_challenge.dtos.AeroportoMinDTO;
+import com.horizonairlines.horizon_challenge.dtos.Aeroporto.AeroportoDTO;
+import com.horizonairlines.horizon_challenge.dtos.Aeroporto.AeroportoInputDTO;
 import com.horizonairlines.horizon_challenge.services.AeroportoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,8 +24,8 @@ public class AeroportoController {
     private AeroportoService aeroportoService;
 
     @PostMapping
-    public ResponseEntity<AeroportoDTO> saveAeroporto(@RequestBody AeroportoMinDTO aeroportoMinDTO) {
-        AeroportoDTO result = aeroportoService.save(aeroportoMinDTO);
+    public ResponseEntity<AeroportoDTO> saveAeroporto(@RequestBody AeroportoInputDTO aeroportoInputDTO) {
+        AeroportoDTO result = aeroportoService.save(aeroportoInputDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
